@@ -1,4 +1,5 @@
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
+import List from '@/list'
 import TestComponent from '@/test'
 
 test('mount a vue component', () => {
@@ -15,3 +16,34 @@ test('mount a vue component', () => {
 
 // npm run test specs/test/spec/js        -- run the test
 // npm run -- -u specs/test/spec/js       -- just update the snapshot
+
+
+
+test('ListComponent Shallow', () => {
+  console.log(mount(List).html())
+  console.log(shallowMount(List).html())
+})
+
+/*
+
+mount also runs nested components
+
+<div>
+  <ul>
+    <li><strong>Iron Man</strong></li>
+    <li><strong>Avengers</strong></li>
+    <li><strong>Infitinity War</strong></li>
+  </ul>
+</div>
+
+
+shallowMount runs only the component, no childs
+
+<div>
+  <ul>
+    <listitem-stub movie="Iron Man"></listitem-stub>
+    <listitem-stub movie="Avengers"></listitem-stub>
+    <listitem-stub movie="Infitinity War"></listitem-stub>
+  </ul>
+</div>
+*/
