@@ -6,6 +6,7 @@
   "author": "Roman Kuba <roman.kuba@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "_comment_test": "npm run test",
     "test": "jest"
   },
   "dependencies": {

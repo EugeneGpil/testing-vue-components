@@ -7,6 +7,7 @@ module.exports = {
   },
   transform: {
     "^.+\\.js$": "babel-jest",
+    // all vue files will be handled by vue-jest package
     "^.+\\.vue$": "vue-jest",
   },
   snapshotSerializers: [
