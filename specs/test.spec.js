@@ -1,6 +1,9 @@
 import { mount, shallowMount } from '@vue/test-utils'
 import List from '@/list'
 import TestComponent from '@/test'
+import Vue from 'vue'
+
+
 
 test('mount a vue component', () => {
   const wrapper = mount(TestComponent, {
@@ -11,23 +14,21 @@ test('mount a vue component', () => {
     }
   })
   // is result html equal to snapshot specs/__snapshots__/test.spec.js.snap
-  expect(wrapper.html()).toMatchSnapshot()
+  expect(wrapper).toMatchSnapshot()
 })
 
-// npm run test specs/test/spec/js        -- run the test
-// npm run -- -u specs/test/spec/js       -- just update the snapshot
+// npm run test specs/test                      -- run the test
+// npm run test -- -u specs/test                -- just update the snapshot
 
 
 
 test('ListComponent Shallow', () => {
-  console.log(mount(List).html())
-  console.log(shallowMount(List).html())
+  console.log(mount(List))
+  console.log(shallowMount(List))
 })
 
 /*
-
 mount also runs nested components
-
 <div>
   <ul>
     <li><strong>Iron Man</strong></li>
@@ -36,9 +37,7 @@ mount also runs nested components
   </ul>
 </div>
 
-
 shallowMount runs only the component, no childs
-
 <div>
   <ul>
     <listitem-stub movie="Iron Man"></listitem-stub>
@@ -47,3 +46,24 @@ shallowMount runs only the component, no childs
   </ul>
 </div>
 */
+
+
+
+test('ListComponent', async () => {
+  const wrapper = mount(List)
+  // get data() value from component
+  const movies = wrapper.vm.marvelMovies
+
+  // set data() for component
+  wrapper.setData({
+    marvelMovies: [
+      ...movies,
+      'Endgame'
+    ]
+  })
+
+  // render the component
+  await Vue.nextTick()
+
+  expect(wrapper).toMatchSnapshot()
+})
